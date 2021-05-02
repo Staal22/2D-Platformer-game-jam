@@ -275,6 +275,9 @@
  <Reference Include="Unity.Analytics.StandardEvents">
  <HintPath>/Users/gyrd/sandkasse/unity-2d/Game-jam/Game-jam/2D Platformer/Library/PackageCache/com.unity.analytics@3.3.2/Unity.Analytics.StandardEvents.dll</HintPath>
  </Reference>
+ <Reference Include="Pathfinding.Ionic.Zip.Reduced">
+ <HintPath>/Users/gyrd/sandkasse/unity-2d/Game-jam/Game-jam/2D Platformer/Assets/AstarPathfindingProject/Plugins/DotNetZip/Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
+ </Reference>
  <Reference Include="netstandard">
  <HintPath>/Applications/Unity/Hub/Editor/2019.1.8f1/Unity.app/Contents/NetStandard/ref/2.0.0/netstandard.dll</HintPath>
  </Reference>
@@ -625,6 +628,18 @@
     <ProjectReference Include="Assembly-CSharp-firstpass.csproj">
       <Project>{AA816F59-3C1B-AC27-D0A9-5E1642FC5C7D}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
+    </ProjectReference>
+    <ProjectReference Include="AstarPathfindingProject.csproj">
+      <Project>{4ED80CF8-FAE4-8C75-3200-C63F72087B44}</Project>
+      <Name>AstarPathfindingProject</Name>
+    </ProjectReference>
+    <ProjectReference Include="PackageToolsEditor.csproj">
+      <Project>{42FDBA2A-8267-BD43-A9FF-621E1E0A5DEF}</Project>
+      <Name>PackageToolsEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="AstarPathfindingProjectEditor.csproj">
+      <Project>{144F1B3C-BDE7-0C0F-46CF-920DAE693DFF}</Project>
+      <Name>AstarPathfindingProjectEditor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
