@@ -67,7 +67,10 @@
     <Compile Include="Assets\Hero Knight - Pixel Art\Demo\HeroKnight.cs" />
     <Compile Include="Assets\Hero Knight - Pixel Art\Demo\Sensor_HeroKnight.cs" />
     <Compile Include="Assets\Scripts\EnemyAI.cs" />
+    <Compile Include="Assets\Scripts\EnemyInteraction.cs" />
+    <Compile Include="Assets\Scripts\GameMaster.cs" />
     <Compile Include="Assets\Scripts\Parallaxing.cs" />
+    <Compile Include="Assets\Scripts\StatusIndicator.cs" />
     <Compile Include="Assets\Scripts\Tiling.cs" />
     <None Include="Assets\Hero Knight - Pixel Art\ColorSwap\Sprites-ColorSwap.shader" />
     <Reference Include="Unity.Timeline.Editor">

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class HeroKnight : MonoBehaviour {
 
@@ -11,18 +12,36 @@ public class HeroKnight : MonoBehaviour {
 
     private Animator            m_animator;
     private Rigidbody2D         m_body2d;
+
     private Sensor_HeroKnight   m_groundSensor;
     private Sensor_HeroKnight   m_wallSensorR1;
     private Sensor_HeroKnight   m_wallSensorR2;
     private Sensor_HeroKnight   m_wallSensorL1;
     private Sensor_HeroKnight   m_wallSensorL2;
+
     private bool                m_grounded = false;
     private bool                m_rolling = false;
+
     private int                 m_facingDirection = 1;
     private int                 m_currentAttack = 0;
     private float               m_timeSinceAttack = 0.0f;
     private float               m_delayToIdle = 0.0f;
 
+    public Transform attackPoint;
+    public LayerMask enemyLayers;
+
+    public int attackDamage = 40;
+    public float attackRange = 0.5f;
+
+    [System.Serializable]
+    public class PlayerStats
+    {
+        public int Health = 100;
+    }
+
+    public PlayerStats playerStats = new PlayerStats();
+
+    public int fallBoundary = -15;
 
     // Use this for initialization
     void Start ()
@@ -41,6 +60,10 @@ public class HeroKnight : MonoBehaviour {
     {
         // Increase timer that controls attack combo
         m_timeSinceAttack += Time.deltaTime;
+
+        //Kill player if they fall outside boundary
+        if (transform.position.y <= fallBoundary)
+            DamagePlayer(9999999);
 
         //Check if character just landed on the ground
         if (!m_grounded && m_groundSensor.State())
@@ -110,6 +133,15 @@ public class HeroKnight : MonoBehaviour {
             // Call one of three attack animations "Attack1", "Attack2", "Attack3"
             m_animator.SetTrigger("Attack" + m_currentAttack);
 
+            //Detect enemies in rage of attack
+            Collider2D[] hitEnemies = Physics2D.OverlapCircleAll(attackPoint.position, attackRange, enemyLayers);
+
+            //Damage the detected enemies
+            foreach(Collider2D enemy in hitEnemies)
+            {
+                enemy.GetComponent<EnemyInteraction>().TakeDamage(attackDamage);
+            }
+
             // Reset timer
             m_timeSinceAttack = 0.0f;
         }
@@ -166,6 +198,24 @@ public class HeroKnight : MonoBehaviour {
     void AE_ResetRoll()
     {
         m_rolling = false;
+    }
+
+    public void DamagePlayer(int damage)
+    {
+        playerStats.Health -= damage;
+        if (playerStats.Health <= 0)
+        {
+            SceneManager.LoadScene(SceneManager.GetSceneAt(0).name);
+        }
+    }
+
+
+private void OnDrawGizmosSelected()
+    {
+        if (attackPoint == null)
+            return;
+
+        Gizmos.DrawWireSphere(attackPoint.position, attackRange);
     }
 
     // Called in slide animation.
